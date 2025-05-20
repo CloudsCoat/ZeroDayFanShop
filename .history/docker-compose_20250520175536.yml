@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zeroday-fanshop-app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      # Voeg hier je env vars toe als je een .env bestand hebt
+      # Bijvoorbeeld: APP_ENV=local
+    restart: unless-stopped
