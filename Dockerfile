@@ -47,8 +47,17 @@ RUN chown -R www-data:www-data /var/www/html \
 # Install PHP dependencies
 RUN composer install --no-interaction --no-dev --optimize-autoloader
 
+# Regenerate Composer autoload files
+RUN composer dump-autoload
+
 # Generate application key
 RUN php artisan key:generate
+
+# Clear Laravel caches
+RUN php artisan config:clear && \
+    php artisan route:clear && \
+    php artisan cache:clear && \
+    php artisan view:clear
 
 # Install JS dependencies and build assets
 RUN npm install && npm run build

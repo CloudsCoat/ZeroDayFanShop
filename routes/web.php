@@ -9,14 +9,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
 Route::group(['prefix' => 'api/v1'], function () {
-    Route::get('/users', [UserController::class, 'index'])->middleware(function ($request, $next) {
-        $apiKey = $request->header('X-API-KEY');
-        $validKey = env('API_KEY', 'supersecretkey');
-        if ($apiKey !== $validKey) {
-            return response()->json(['status' => 'error', 'message' => 'Unauthorized'], 401);
-        }
-        return $next($request);
-    });
+    Route::get('/users', [UserController::class, 'index']);
 });
 
 Route::get('/', function () {
